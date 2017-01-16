@@ -1,20 +1,29 @@
 package futurice.org.restfulmobileclient.activity;
 
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ProgressBar;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import futurice.org.restfulmobileclient.R;
 import futurice.org.restfulmobileclient.fragment.UserDetailsFragment;
 import futurice.org.restfulmobileclient.http.HttpUtil;
+import futurice.org.restfulmobileclient.http.IUserDataCallback;
+import futurice.org.restfulmobileclient.http.UserDataEndpoint;
 import futurice.org.restfulmobileclient.model.UserDataModel;
 import futurice.org.restfulmobileclient.ui.UserListRecyclerViewAdapter;
 
 public class UserDataActivity extends FragmentActivity {
+
+
+    private RecyclerView mUserListView;
+    private ProgressBar mProgressBar;
 
 
     @Override
@@ -28,14 +37,11 @@ public class UserDataActivity extends FragmentActivity {
 
     private void initUI() {
         // gets the recycler view which holds all users
-        RecyclerView userListView = (RecyclerView) findViewById(R.id.activity_user_data_user_list);
+        mUserListView = (RecyclerView) findViewById(R.id.activity_user_data_user_list);
+        mProgressBar = (ProgressBar) findViewById(R.id.activity_user_data_loading);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        userListView.setLayoutManager(layoutManager);
-
-        // sets the user data
-        UserListRecyclerViewAdapter mAdapter = new UserListRecyclerViewAdapter(this, createUserDataList());
-        userListView.setAdapter(mAdapter);
+        mUserListView.setLayoutManager(layoutManager);
     }
 
 
@@ -57,25 +63,55 @@ public class UserDataActivity extends FragmentActivity {
     protected void onResume() {
         super.onResume();
 
-        if(!HttpUtil.isNetworkConnectionAvailable(this)) {
-            // TODO: Show a message box to notify the user
+        // only load the data once
+        if(null == mUserListView.getAdapter()
+                || mUserListView.getAdapter().getItemCount() <= 0) {
+            loadUserData();
         }
     }
 
 
-    // TODO: DEBUG only - remove this!!
-    private List<UserDataModel> createUserDataList() {
-        List<UserDataModel> result = new ArrayList<>();
+    private void loadUserData() {
+        // sets the user data
+        UserDataEndpoint.getInstance().getUserList(new IUserDataCallback() {
+            @Override
+            public void onFail() {
+                updateList(Collections.<UserDataModel>emptyList());
+            }
 
-        UserDataModel user = new UserDataModel();
-        user.setName("Test 1");
+            @Override
+            public void onResponse(List<UserDataModel> userData) {
+                updateList(userData);
+            }
 
-        UserDataModel user2 = new UserDataModel();
-        user2.setName("Test 2");
+            private void updateList(final List<UserDataModel> userData) {
+                UserDataActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        // hide the progress bar
+                        mProgressBar.setVisibility(View.GONE);
 
-        result.add(user);
-        result.add(user2);
+                        if(!userData.isEmpty()) {
+                            // sort the list of users
+                            Collections.sort(userData);
 
-        return result;
+                            // add the users to the list
+                            UserListRecyclerViewAdapter mAdapter =
+                                    new UserListRecyclerViewAdapter(UserDataActivity.this, userData);
+
+                            mUserListView.setAdapter(mAdapter);
+
+                        // if list is empty -> check if there is a network connection
+                        } else if(!HttpUtil.isNetworkConnectionAvailable(UserDataActivity.this)) {
+                            new AlertDialog.Builder(UserDataActivity.this)
+                                    .setTitle(R.string.message_box_no_network_title)
+                                    .setMessage(R.string.message_box_no_network_msg)
+                                    .setPositiveButton(R.string.button_ok, null)
+                                    .show();
+                        }
+                    }
+                });
+            }
+        });
     }
 }

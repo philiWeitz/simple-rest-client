@@ -1,9 +1,9 @@
 package futurice.org.restfulmobileclient.ui;
 
 
+import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
@@ -11,6 +11,7 @@ import java.util.List;
 
 import futurice.org.restfulmobileclient.R;
 import futurice.org.restfulmobileclient.activity.UserDataActivity;
+import futurice.org.restfulmobileclient.databinding.LayoutUserListEntryBinding;
 import futurice.org.restfulmobileclient.model.UserDataModel;
 
 
@@ -32,10 +33,13 @@ public class UserListRecyclerViewAdapter extends
 
     @Override
     public UserDataRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.layout_user_list_entry, parent, false);
 
-        UserDataRecyclerViewHolder viewHolder = new UserDataRecyclerViewHolder(mActivity, v);
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+
+        LayoutUserListEntryBinding binding = DataBindingUtil.inflate(
+                layoutInflater, R.layout.layout_user_list_entry, parent, false);
+
+        UserDataRecyclerViewHolder viewHolder = new UserDataRecyclerViewHolder(mActivity, binding);
         return viewHolder;
     }
 

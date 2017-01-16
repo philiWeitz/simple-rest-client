@@ -1,14 +1,39 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable name="userData" type="futurice.org.restfulmobileclient.model.UserDataModel"/>
+    </data>
+
+    <LinearLayout
+        android:paddingLeft="@dimen/list_item_margin_left_right"
+        android:paddingRight="@dimen/list_item_margin_left_right"
+        android:paddingTop="@dimen/list_item_margin_top_bottom"
+        android:paddingBottom="@dimen/list_item_margin_top_bottom"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/list_entry_style">
+
+    <TextView
+        android:id="@+id/layout_user_list_entry_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorTextCaption"
+        android:textSize="@dimen/list_item_content_text_size"
+        android:text="@{userData.username}" />
 
     <TextView
         android:id="@+id/layout_user_list_entry_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TEXT" />
+        android:textSize="@dimen/list_item_content_text_size"
+        android:text="@{userData.name}" />
 
+    <TextView
+        android:id="@+id/layout_user_list_entry_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/list_item_content_text_size"
+        android:text="@{userData.email}" />
 </LinearLayout>
+</layout>
