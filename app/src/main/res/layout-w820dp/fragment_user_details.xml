@@ -1,0 +1,62 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="userData"
+            type="futurice.org.restfulmobileclient.model.UserDataModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/background_light"
+        android:clickable="true"
+        android:orientation="horizontal">
+
+        <!-- Left side of the screen -->
+        <RelativeLayout
+            android:layout_width="300dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/fragment_user_details_profile_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:paddingBottom="@dimen/list_item_margin_top_bottom"
+                android:paddingLeft="@dimen/list_item_margin_left_right"
+                android:paddingRight="@dimen/list_item_margin_left_right"
+                android:text="@{userData.username}"
+                android:textSize="12pt" />
+
+        </RelativeLayout>
+
+        <!-- Right side of the screen -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/list_item_margin_top_bottom"
+            android:paddingLeft="@dimen/list_item_margin_left_right"
+            android:paddingRight="@dimen/list_item_margin_left_right"
+            android:paddingTop="@dimen/list_item_margin_top_bottom">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <!-- Include the user detail fields -->
+                <include android:id="@+id/user_details_included"
+                    layout="@layout/layout_user_detail_fields"/>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</layout>

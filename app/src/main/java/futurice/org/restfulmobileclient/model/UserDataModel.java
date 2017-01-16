@@ -1,9 +1,6 @@
 package futurice.org.restfulmobileclient.model;
 
 
-import android.widget.Filter;
-import android.widget.Filterable;
-
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;

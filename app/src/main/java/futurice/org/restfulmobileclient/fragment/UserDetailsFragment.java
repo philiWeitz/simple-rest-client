@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import futurice.org.restfulmobileclient.BR;
 import futurice.org.restfulmobileclient.R;
 import futurice.org.restfulmobileclient.databinding.FragmentUserDetailsBinding;
 import futurice.org.restfulmobileclient.http.IUserProfileImageCallback;
@@ -28,33 +29,35 @@ public class UserDetailsFragment extends Fragment {
     private static final String INTENT_EMAIL_MAIL_TO = "mailto";
     private static final String INTENT_GOOGLE_MAPS_PACKAGE = "com.google.android.apps.maps";
 
-    private FragmentUserDetailsBinding mBinding;
     private ImageView mProfileImageView;
+    private UserDataModel mUserData = new UserDataModel();
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        mBinding = DataBindingUtil.inflate(
+        FragmentUserDetailsBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_user_details, container, false);
 
-        setDataBinding();
-        initUI(mBinding.getRoot());
-        initClickListener(mBinding.getRoot());
+        setDataBinding(binding);
+        initUI(binding.getRoot());
+        initClickListener(binding.getRoot());
 
-        return mBinding.getRoot();
+        return binding.getRoot();
     }
 
 
-    private void setDataBinding() {
+    private void setDataBinding(FragmentUserDetailsBinding binding) {
         // get the user data
         if(getArguments().containsKey(ARG_USER_DATA)) {
             UserDataModel userData = (UserDataModel) getArguments().getSerializable(ARG_USER_DATA);
+            mUserData = userData;
 
-            mBinding.setUserData(userData);
-            mBinding.setUserAddress(userData.getAddress());
-            mBinding.executePendingBindings();
+            binding.setUserData(userData);
+            binding.userDetailsIncluded.setVariable(BR.userData, userData);
+            binding.userDetailsIncluded.setVariable(BR.userAddress, userData.getAddress());
+            binding.executePendingBindings();
 
             UserDataEndpoint.getInstance().getUserImage(userData, mUserProfileCallback);
         }
@@ -91,12 +94,10 @@ public class UserDetailsFragment extends Fragment {
     private View.OnClickListener mOnEmailClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            UserDataModel userData = mBinding.getUserData();
-
             // switch to email intent
-            if(null != userData && !"".equals(userData.getEmail())) {
+            if(null != mUserData && !"".equals(mUserData.getEmail())) {
                 Intent emailIntent = new Intent(Intent.ACTION_SENDTO,
-                        Uri.fromParts(INTENT_EMAIL_MAIL_TO, userData.getEmail(), null));
+                        Uri.fromParts(INTENT_EMAIL_MAIL_TO, mUserData.getEmail(), null));
                 startActivity(Intent.createChooser(emailIntent,
                         getString(R.string.intent_email_send_to)));
             }
@@ -107,13 +108,11 @@ public class UserDetailsFragment extends Fragment {
     private View.OnClickListener mOnPhoneNumberClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            UserDataModel userData = mBinding.getUserData();
-
             // call the person
-            if(null != userData && !"".equals(userData.getPhone())) {
+            if(null != mUserData && !"".equals(mUserData.getPhone())) {
                 Intent dialIntent = new Intent(Intent.ACTION_DIAL);
                 // show on the screen
-                dialIntent.setData(Uri.parse(INTENT_DIALER_PREFIX + userData.getPhone()));
+                dialIntent.setData(Uri.parse(INTENT_DIALER_PREFIX + mUserData.getPhone()));
                 startActivity(dialIntent);
             }
         }
@@ -123,7 +122,7 @@ public class UserDetailsFragment extends Fragment {
     private View.OnClickListener mOnAddressClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            UserAddressModel userAddress = mBinding.getUserAddress();
+            UserAddressModel userAddress = mUserData.getAddress();
 
             // show location on map
             if(null != userAddress && null != userAddress.getLocation()

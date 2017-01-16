@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="userData"
+            type="futurice.org.restfulmobileclient.model.UserDataModel" />
+
+        <variable
+            name="userAddress"
+            type="futurice.org.restfulmobileclient.model.UserAddressModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Full Name Field -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/list_item_margin_top_bottom"
+            android:paddingLeft="@dimen/list_item_margin_left_right"
+            android:paddingRight="@dimen/list_item_margin_left_right"
+            android:paddingTop="@dimen/list_item_margin_top_bottom">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fragment_user_details_caption_full_name"
+                    android:textColor="@color/colorTextSecondary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{userData.name}"
+                    android:textColor="@color/colorTextPrimary" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Email Field -->
+        <LinearLayout
+            android:id="@+id/fragment_user_details_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/list_item_margin_top_bottom"
+                android:paddingLeft="@dimen/list_item_margin_left_right"
+                android:paddingRight="@dimen/list_item_margin_left_right"
+                android:paddingTop="@dimen/list_item_margin_top_bottom">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fragment_user_details_caption_email"
+                    android:textColor="@color/colorTextSecondary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{userData.email}"
+                    android:textColor="@color/colorTextPrimary" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingLeft="@dimen/list_item_margin_left_right"
+                android:paddingRight="@dimen/list_item_margin_left_right"
+                android:src="@drawable/icon_mail" />
+
+        </LinearLayout>
+
+        <!-- Phone Field -->
+        <LinearLayout
+            android:id="@+id/fragment_user_details_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/list_item_margin_top_bottom"
+                android:paddingLeft="@dimen/list_item_margin_left_right"
+                android:paddingRight="@dimen/list_item_margin_left_right"
+                android:paddingTop="@dimen/list_item_margin_top_bottom">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fragment_user_details_caption_phone"
+                    android:textColor="@color/colorTextSecondary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{userData.phone}"
+                    android:textColor="@color/colorTextPrimary" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingLeft="@dimen/list_item_margin_left_right"
+                android:paddingRight="@dimen/list_item_margin_left_right"
+                android:src="@drawable/icon_phone" />
+
+        </LinearLayout>
+
+        <!-- Address Field -->
+        <LinearLayout
+            android:id="@+id/fragment_user_details_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/list_item_margin_top_bottom"
+                android:paddingLeft="@dimen/list_item_margin_left_right"
+                android:paddingRight="@dimen/list_item_margin_left_right"
+                android:paddingTop="@dimen/list_item_margin_top_bottom">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fragment_user_details_caption_address"
+                    android:textColor="@color/colorTextSecondary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{userAddress.addressString}"
+                    android:textColor="@color/colorTextPrimary" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingLeft="@dimen/list_item_margin_left_right"
+                android:paddingRight="@dimen/list_item_margin_left_right"
+                android:src="@drawable/icon_location" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

@@ -10,8 +10,12 @@
         to be connected to a Network. Please ensure that a network connection is available</string>
 
     <!-- Intents -->
-    <string name="intent_email_send_to">"Send email..."</string>
+    <string name="intent_email_send_to">Send email...</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Fragment User Details -->
+    <string name="fragment_user_details_caption_full_name">Full Name</string>
+    <string name="fragment_user_details_caption_email">Email</string>
+    <string name="fragment_user_details_caption_phone">Phone</string>
+    <string name="fragment_user_details_caption_address">Adress</string>
+
 </resources>
