@@ -1,6 +1,9 @@
 package futurice.org.restfulmobileclient.model;
 
 
+import android.widget.Filter;
+import android.widget.Filterable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -72,6 +75,13 @@ public class UserDataModel implements Serializable, Comparable<UserDataModel> {
 
     public void setProfileImageURL(String profileImageURL) {
         this.profileImageURL = profileImageURL;
+    }
+
+    public String getFirstCharacterOfName() {
+        if(null != name && !"".equals(name)) {
+            return name.substring(0, 1);
+        }
+        return "";
     }
 
     @Override

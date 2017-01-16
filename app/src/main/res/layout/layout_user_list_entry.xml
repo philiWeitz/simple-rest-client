@@ -1,39 +1,61 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-        <variable name="userData" type="futurice.org.restfulmobileclient.model.UserDataModel"/>
+        <variable
+            name="userData"
+            type="futurice.org.restfulmobileclient.model.UserDataModel" />
     </data>
 
     <LinearLayout
-        android:paddingLeft="@dimen/list_item_margin_left_right"
-        android:paddingRight="@dimen/list_item_margin_left_right"
-        android:paddingTop="@dimen/list_item_margin_top_bottom"
-        android:paddingBottom="@dimen/list_item_margin_top_bottom"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/list_entry_style">
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/layout_user_list_entry_username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorTextCaption"
-        android:textSize="@dimen/list_item_content_text_size"
-        android:text="@{userData.username}" />
+        <RelativeLayout
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center"
+            android:background="@drawable/user_list_circle"
+            android:layout_width="40dp"
+            android:layout_height="40dp">
 
-    <TextView
-        android:id="@+id/layout_user_list_entry_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/list_item_content_text_size"
-        android:text="@{userData.name}" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:textSize="@dimen/list_item_content_text_size"
+                android:text="@{userData.firstCharacterOfName}"/>
 
-    <TextView
-        android:id="@+id/layout_user_list_entry_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/list_item_content_text_size"
-        android:text="@{userData.email}" />
-</LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/list_item_margin_top_bottom"
+            android:paddingLeft="@dimen/list_item_margin_left_right"
+            android:paddingRight="@dimen/list_item_margin_left_right"
+            android:paddingTop="@dimen/list_item_margin_top_bottom">
+
+            <TextView
+                android:id="@+id/layout_user_list_entry_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text='@{userData.name + " ..."}'
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="@dimen/list_item_content_text_size" />
+
+            <TextView
+                android:id="@+id/layout_user_list_entry_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{userData.username}"
+                android:textColor="@color/colorTextSecondary"
+                android:textSize="@dimen/list_item_content_text_size" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 </layout>

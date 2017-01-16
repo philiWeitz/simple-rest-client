@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RestfulMobileClient</string>
+    <string name="app_name">Contacts</string>
 
     <!-- Buttons -->
     <string name="button_ok">OK</string>

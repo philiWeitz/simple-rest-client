@@ -32,6 +32,7 @@ public class UserAddressLocationModel implements Serializable {
 
     public String getGoogleMapsString() {
         StringBuilder sb = new StringBuilder();
+
         sb.append("geo:")
                 .append(lat).append(",")
                 .append(lng).append("?z=20");

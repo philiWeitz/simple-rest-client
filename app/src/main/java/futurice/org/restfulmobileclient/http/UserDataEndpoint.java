@@ -20,8 +20,9 @@ import okhttp3.Response;
 
 public class UserDataEndpoint extends AbstractEndpoint {
 
-    private static final String URL_USER_LIST = "http://jsonplaceholder.typicode.com/users";
-
+    // avoid final modifier for unit testing (final will inline the string!)
+    private static String URL_USER_LIST = "http://jsonplaceholder.typicode.com/users";
+    // singleton instance
     private static UserDataEndpoint instance;
 
 

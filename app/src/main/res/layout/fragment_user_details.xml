@@ -42,7 +42,8 @@
                     android:paddingBottom="@dimen/list_item_margin_top_bottom"
                     android:paddingLeft="@dimen/list_item_margin_left_right"
                     android:paddingRight="@dimen/list_item_margin_left_right"
-                    android:text="@{userData.username}" />
+                    android:text="@{userData.username}"
+                    android:textSize="12pt"/>
 
             </RelativeLayout>
 
@@ -59,60 +60,101 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Full Name" />
+                    android:text="Full Name"
+                    android:textColor="@color/colorTextSecondary" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{userData.name}" />
+                    android:text="@{userData.name}"
+                    android:textColor="@color/colorTextPrimary" />
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/fragment_user_details_email"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/list_entry_style"
-                android:orientation="vertical"
-                android:paddingBottom="@dimen/list_item_margin_top_bottom"
-                android:paddingLeft="@dimen/list_item_margin_left_right"
-                android:paddingRight="@dimen/list_item_margin_left_right"
-                android:paddingTop="@dimen/list_item_margin_top_bottom">
+                android:orientation="horizontal">
 
-                <TextView
+                <LinearLayout
+                    android:id="@+id/fragment_user_details_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Email" />
+                    android:background="@drawable/list_entry_style"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/list_item_margin_top_bottom"
+                    android:paddingLeft="@dimen/list_item_margin_left_right"
+                    android:paddingRight="@dimen/list_item_margin_left_right"
+                    android:paddingTop="@dimen/list_item_margin_top_bottom">
 
-                <TextView
-                    android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Email"
+                        android:textColor="@color/colorTextSecondary" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{userData.email}"
+                        android:textColor="@color/colorTextPrimary" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{userData.email}" />
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:paddingRight="@dimen/list_item_margin_left_right"
+                    android:src="@drawable/icon_mail" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
-                android:id="@+id/fragment_user_details_phone"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/list_entry_style"
-                android:orientation="vertical"
-                android:paddingBottom="@dimen/list_item_margin_top_bottom"
-                android:paddingLeft="@dimen/list_item_margin_left_right"
-                android:paddingRight="@dimen/list_item_margin_left_right"
-                android:paddingTop="@dimen/list_item_margin_top_bottom">
+                android:orientation="horizontal">
 
-                <TextView
+                <LinearLayout
+                    android:id="@+id/fragment_user_details_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Phone" />
+                    android:background="@drawable/list_entry_style"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/list_item_margin_top_bottom"
+                    android:paddingLeft="@dimen/list_item_margin_left_right"
+                    android:paddingRight="@dimen/list_item_margin_left_right"
+                    android:paddingTop="@dimen/list_item_margin_top_bottom">
 
-                <TextView
-                    android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Phone"
+                        android:textColor="@color/colorTextSecondary" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{userData.phone}"
+                        android:textColor="@color/colorTextPrimary" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{userData.phone}" />
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:paddingRight="@dimen/list_item_margin_left_right"
+                    android:src="@drawable/icon_phone" />
 
-            </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
             <LinearLayout
                 android:id="@+id/fragment_user_details_location"
@@ -128,14 +170,26 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Address" />
+                    android:text="Address"
+                    android:textColor="@color/colorTextSecondary" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{userAddress.addressString}" />
+                    android:text="@{userAddress.addressString}"
+                    android:textColor="@color/colorTextPrimary" />
 
             </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:paddingRight="@dimen/list_item_margin_left_right"
+                    android:src="@drawable/icon_location" />
+
+            </RelativeLayout>
 
         </LinearLayout>
     </ScrollView>
