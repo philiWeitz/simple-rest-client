@@ -153,15 +153,23 @@ public class UserDetailsFragment extends Fragment {
         @Override
         public void onFail() {
             // TODO: show default image
+            processResponse(null);
         }
 
         @Override
-        public void onResponse(final Bitmap profileImage) {
+        public void onResponse(Bitmap profileImage) {
+            processResponse(profileImage);
+        }
+
+        private void processResponse(final Bitmap profileImage) {
             UserDetailsFragment.this.getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     // set the profile bitmap
                     mProfileImageView.setImageBitmap(profileImage);
+                    // hide the progress bar (also for espresso tests!)
+                    getActivity().findViewById(
+                            R.id.fragment_user_details_loading).setVisibility(View.GONE);
                 }
             });
         }

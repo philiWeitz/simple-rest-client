@@ -7,7 +7,6 @@
     </data>
 
     <ScrollView
-        android:id="@+id/fragment_user_details_parent_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/background_light"
@@ -22,6 +21,14 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="300dp">
+
+                <ProgressBar
+                    android:id="@+id/fragment_user_details_loading"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"/>
 
                 <ImageView
                     android:id="@+id/fragment_user_details_profile_image"

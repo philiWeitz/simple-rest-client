@@ -52,7 +52,7 @@ public class UserDetailsFragmentTest {
                 .perform(click());
 
         // get fragment
-        ViewInteraction fragment = onView(withId(R.id.fragment_user_details_parent_layout));
+        ViewInteraction fragment = onView(withId(R.id.activity_user_data_fragment_container));
         fragment.check(matches(hasDescendant(withText(USER_NAME))));
         fragment.check(matches(hasDescendant(withText(NAME))));
         fragment.check(matches(hasDescendant(withText(PHONE))));

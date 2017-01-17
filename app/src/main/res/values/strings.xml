@@ -4,6 +4,7 @@
 
     <!-- Buttons -->
     <string name="button_ok">OK</string>
+    <string name="button_retry">Retry</string>
 
     <!-- Message boxes -->
     <string name="message_box_no_network_title">No Network Connection</string>
@@ -18,5 +19,8 @@
     <string name="fragment_user_details_caption_email">Email</string>
     <string name="fragment_user_details_caption_phone">Phone</string>
     <string name="fragment_user_details_caption_address">Adress</string>
+
+    <!-- Fragment No Connection -->
+    <string name="fragment_no_network_connection_text">No Network Connection Available</string>
 
 </resources>

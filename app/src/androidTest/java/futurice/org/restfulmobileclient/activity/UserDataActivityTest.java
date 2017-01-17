@@ -1,8 +1,10 @@
 package futurice.org.restfulmobileclient.activity;
 
 
+import android.graphics.drawable.Drawable;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.v4.content.ContextCompat;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -48,8 +50,8 @@ public class UserDataActivityTest {
         // waits until the first element was loaded
         waitUntilFound(R.id.activity_user_data_user_list, 0, INIT_TIMEOUT_IN_MS);
 
-        // test that all elements are loaded
-        onView(nthChildOf(withId(R.id.activity_user_data_user_list), MAX_AMOUNT_OF_RECORDS-1))
+        // test that at least 2 elements are loaded
+        onView(nthChildOf(withId(R.id.activity_user_data_user_list), 2))
                 .check(matches(isDisplayed()));
 
         // checks the values of the first record
@@ -76,7 +78,7 @@ public class UserDataActivityTest {
                 .perform(click());
 
         // check if fragment is visible
-        onView(withId(R.id.fragment_user_details_parent_layout))
+        onView(withId(R.id.user_details_included))
                 .check(matches(isDisplayed()));
     }
 }

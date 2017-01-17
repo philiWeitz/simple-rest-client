@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.List;
 
 import futurice.org.restfulmobileclient.R;
+import futurice.org.restfulmobileclient.fragment.NoNetworkConnectionFragment;
 import futurice.org.restfulmobileclient.fragment.UserDetailsFragment;
 import futurice.org.restfulmobileclient.http.HttpUtil;
 import futurice.org.restfulmobileclient.http.IUserDataCallback;
@@ -59,9 +60,8 @@ public class UserDataActivity extends AppCompatActivity {
         final RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         userListView.setLayoutManager(layoutManager);
 
-        mUserDataListAdapter =
-                new UserListRecyclerViewAdapter(UserDataActivity.this);
-        // set the
+        mUserDataListAdapter = new UserListRecyclerViewAdapter(UserDataActivity.this);
+        // set the adapter
         userListView.setAdapter(mUserDataListAdapter);
     }
 
@@ -83,6 +83,19 @@ public class UserDataActivity extends AppCompatActivity {
     }
 
 
+    // shows the no network connection fragment
+    private void showNoNetworkConnectionFragment() {
+        final NoNetworkConnectionFragment noNetworkFragment =
+                new NoNetworkConnectionFragment();
+
+        // adds the fragment to the container
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.activity_user_data_fragment_container, noNetworkFragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -97,7 +110,7 @@ public class UserDataActivity extends AppCompatActivity {
 
 
     // callback from getting the user data from the RESTful API
-    private void loadUserData() {
+    public void loadUserData() {
         // sets the user data
         UserDataEndpoint.getInstance().getUserList(new IUserDataCallback() {
             @Override
@@ -126,12 +139,7 @@ public class UserDataActivity extends AppCompatActivity {
 
                         // if list is empty -> check if there is a network connection
                         } else if(!HttpUtil.isNetworkConnectionAvailable(UserDataActivity.this)) {
-                            // if no network connection -> show message to the user
-                            new AlertDialog.Builder(UserDataActivity.this)
-                                    .setTitle(R.string.message_box_no_network_title)
-                                    .setMessage(R.string.message_box_no_network_msg)
-                                    .setPositiveButton(R.string.button_ok, null)
-                                    .show();
+                            showNoNetworkConnectionFragment();
                         }
                     }
                 });
