@@ -1,13 +1,13 @@
 package futurice.org.restfulmobileclient.model;
 
 
-import com.android.annotations.NonNull;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-import futurice.org.restfulmobileclient.util.FuturiceStringUtil;
+import futurice.org.restfulmobileclient.util.StringUtil;
 
+// holds the address of a user
 public class UserAddressModel implements Serializable {
 
     @SerializedName("street")
@@ -23,39 +23,39 @@ public class UserAddressModel implements Serializable {
     String zipcode = "";
 
     @SerializedName("geo")
-    UserAddressLocationModel location;
+    UserAddressLocationModel location = new UserAddressLocationModel();
 
 
     public String getStreet() {
         return street;
     }
 
-    public void setStreet(@NonNull String street) {
-        this.street = street;
+    public void setStreet(String street) {
+        this.street = StringUtil.setNonNull(street);
     }
 
     public String getSuite() {
         return suite;
     }
 
-    public void setSuite(@NonNull String suite) {
-        this.suite = suite;
+    public void setSuite(String suite) {
+        this.suite = StringUtil.setNonNull(suite);
     }
 
     public String getCity() {
         return city;
     }
 
-    public void setCity(@NonNull String city) {
-        this.city = city;
+    public void setCity(String city) {
+        this.city = StringUtil.setNonNull(city);
     }
 
     public String getZipcode() {
         return zipcode;
     }
 
-    public void setZipcode(@NonNull String zipcode) {
-        this.zipcode = zipcode;
+    public void setZipcode(String zipcode) {
+        this.zipcode = StringUtil.setNonNull(zipcode);
     }
 
     public UserAddressLocationModel getLocation() {
@@ -67,23 +67,23 @@ public class UserAddressModel implements Serializable {
     }
 
     private String getFirstAddressLine() {
-        StringBuilder sb = new StringBuilder();
+        final StringBuilder sb = new StringBuilder();
         sb.append(street);
-        FuturiceStringUtil.appendToStringWithSeparator(sb, suite, ", ");
+        StringUtil.appendToStringWithSeparator(sb, suite, ", ");
         return sb.toString();
     }
 
     private String getSecondAddressLine() {
-        StringBuilder sb = new StringBuilder();
+        final StringBuilder sb = new StringBuilder();
         sb.append(zipcode);
-        FuturiceStringUtil.appendToStringWithSeparator(sb, city, ", ");
+        StringUtil.appendToStringWithSeparator(sb, city, ", ");
         return sb.toString();
     }
 
     public String getAddressString() {
-        StringBuilder sb = new StringBuilder();
+        final StringBuilder sb = new StringBuilder();
         sb.append(getFirstAddressLine());
-        FuturiceStringUtil.appendToStringWithSeparator(sb, getSecondAddressLine(), "\n");
+        StringUtil.appendToStringWithSeparator(sb, getSecondAddressLine(), "\n");
         return sb.toString();
     }
 }

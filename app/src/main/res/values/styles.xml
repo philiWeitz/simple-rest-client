@@ -1,13 +1,8 @@
+
 <resources>
 
-    <style name="CustomActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
-        <item name="android:background">@color/colorPrimary</item>
-    </style>
-
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="@android:style/Theme.Holo.Light">
-        <!-- Set application theme -->
-        <!--<item name="android:actionBarStyle">@style/CustomActionBar</item>-->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
         <!-- Color schema -->
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -18,6 +13,9 @@
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textColor">@color/colorTextPrimary</item>
 
-    </style>
+        <!-- Don't show old action bar -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
 
+    </style>
 </resources>

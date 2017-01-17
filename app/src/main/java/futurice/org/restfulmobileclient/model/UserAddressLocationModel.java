@@ -5,13 +5,21 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
+import futurice.org.restfulmobileclient.util.StringUtil;
+
+// holds the address location of a user
 public class UserAddressLocationModel implements Serializable {
 
+    private static final String LOCATION_STRING_PREFIX = "geo:";
+    private static final String LOCATION_STRING_SEPARATOR = ",";
+    private static final String LOCATION_STRING_ZOOM_FACTOR = "?z=20";
+
+
     @SerializedName("lat")
-    String lat;
+    String lat = "";
 
     @SerializedName("lng")
-    String lng;
+    String lng = "";
 
 
     public String getLat() {
@@ -19,7 +27,7 @@ public class UserAddressLocationModel implements Serializable {
     }
 
     public void setLat(String lat) {
-        this.lat = lat;
+        this.lat = StringUtil.setNonNull(lat);
     }
 
     public String getLng() {
@@ -27,15 +35,15 @@ public class UserAddressLocationModel implements Serializable {
     }
 
     public void setLng(String lng) {
-        this.lng = lng;
+        this.lng = StringUtil.setNonNull(lng);
     }
 
     public String getGoogleMapsString() {
-        StringBuilder sb = new StringBuilder();
+        final StringBuilder sb = new StringBuilder();
 
-        sb.append("geo:")
-                .append(lat).append(",")
-                .append(lng).append("?z=20");
+        sb.append(LOCATION_STRING_PREFIX)
+                .append(lat).append(LOCATION_STRING_SEPARATOR)
+                .append(lng).append(LOCATION_STRING_ZOOM_FACTOR);
 
         return sb.toString();
     }

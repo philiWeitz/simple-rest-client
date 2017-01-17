@@ -14,9 +14,7 @@ import futurice.org.restfulmobileclient.model.UserDataModel;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-
 
 
 public class UserDataEndpointTest {
@@ -149,6 +147,43 @@ public class UserDataEndpointTest {
             fail();
         }
     }
+
+
+    @Test
+    public void testServerUnreachable() throws Exception {
+        final CountDownLatch signal = new CountDownLatch(1);
+
+        // start web server
+        MockWebServer server = startMockServer(JSON_VALID_BODY, HttpURLConnection.HTTP_OK);
+        // change the url
+        TestUtil.changePrivateStaticVariable(UserDataEndpoint.class,
+                FIELD_USER_DATA_URL, server.url(MOCK_URL).toString());
+        // shutdown the server
+        server.shutdown();
+
+        UserDataEndpoint.getInstance().getUserList(new IUserDataCallback() {
+            @Override
+            public void onFail() {
+                mFailed = false;
+                signal.countDown();
+            }
+
+            @Override
+            public void onResponse(List<UserDataModel> userData) {
+                mFailed = true;
+                signal.countDown();
+            }
+        });
+
+        // wait for callback
+        signal.await();
+
+        // let it fail!
+        if(mFailed) {
+            fail();
+        }
+    }
+
 
     private MockWebServer startMockServer(String body, int responseCode) throws Exception {
         // init response

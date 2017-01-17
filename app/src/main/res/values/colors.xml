@@ -9,4 +9,5 @@
     <color name="colorTextSecondary">#b1b1b1</color>
 
     <color name="colorListEntryBorder">#efefef</color>
+    <color name="colorToolbarBackground">#ff8800</color>
 </resources>

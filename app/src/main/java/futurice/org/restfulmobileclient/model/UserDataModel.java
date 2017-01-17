@@ -5,6 +5,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
+import futurice.org.restfulmobileclient.util.StringUtil;
+
+// holds the whole user data including address and location
 public class UserDataModel implements Serializable, Comparable<UserDataModel> {
 
     @SerializedName("name")
@@ -20,7 +23,7 @@ public class UserDataModel implements Serializable, Comparable<UserDataModel> {
     String phone;
 
     @SerializedName("address")
-    UserAddressModel address;
+    UserAddressModel address = new UserAddressModel();
 
     // Only to show how to load profile images on the fly
     String profileImageURL = "http://placehold.it/600/f66b97";
@@ -31,7 +34,7 @@ public class UserDataModel implements Serializable, Comparable<UserDataModel> {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = StringUtil.setNonNull(name);
     }
 
     public String getUsername() {
@@ -39,7 +42,7 @@ public class UserDataModel implements Serializable, Comparable<UserDataModel> {
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.username = StringUtil.setNonNull(username);
     }
 
     public String getEmail() {
@@ -47,7 +50,7 @@ public class UserDataModel implements Serializable, Comparable<UserDataModel> {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = StringUtil.setNonNull(email);
     }
 
     public String getPhone() {
@@ -55,7 +58,7 @@ public class UserDataModel implements Serializable, Comparable<UserDataModel> {
     }
 
     public void setPhone(String phone) {
-        this.phone = phone;
+        this.phone = StringUtil.setNonNull(phone);
     }
 
     public UserAddressModel getAddress() {
@@ -71,7 +74,7 @@ public class UserDataModel implements Serializable, Comparable<UserDataModel> {
     }
 
     public void setProfileImageURL(String profileImageURL) {
-        this.profileImageURL = profileImageURL;
+        this.profileImageURL = StringUtil.setNonNull(profileImageURL);
     }
 
     public String getFirstCharacterOfName() {

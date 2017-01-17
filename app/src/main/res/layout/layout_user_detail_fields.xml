@@ -24,7 +24,8 @@
             android:paddingBottom="@dimen/list_item_margin_top_bottom"
             android:paddingLeft="@dimen/list_item_margin_left_right"
             android:paddingRight="@dimen/list_item_margin_left_right"
-            android:paddingTop="@dimen/list_item_margin_top_bottom">
+            android:paddingTop="@dimen/list_item_margin_top_bottom"
+            android:background="?android:attr/selectableItemBackground">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -53,7 +54,8 @@
             android:id="@+id/fragment_user_details_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="?android:attr/selectableItemBackground">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -94,7 +96,8 @@
             android:id="@+id/fragment_user_details_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="?android:attr/selectableItemBackground">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -135,7 +138,8 @@
             android:id="@+id/fragment_user_details_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="?android:attr/selectableItemBackground">
 
             <LinearLayout
                 android:layout_width="match_parent"

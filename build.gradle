@@ -21,3 +21,12 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+gradle.ext {
+    android_support_version = '25.1.0'
+    gson_version = '2.8.0'
+    okhttp_version = '3.5.0'
+
+    junit_version = '4.12'
+    mockwebserver_version = '3.5.0'
+}

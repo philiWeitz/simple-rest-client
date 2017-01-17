@@ -1,14 +1,10 @@
 package futurice.org.restfulmobileclient.http;
 
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -23,7 +19,7 @@ public class UserDataEndpoint extends AbstractEndpoint {
     // avoid final modifier for unit testing (final will inline the string!)
     private static String URL_USER_LIST = "http://jsonplaceholder.typicode.com/users";
     // singleton instance
-    private static UserDataEndpoint instance;
+    private static final UserDataEndpoint instance;
 
 
     static {
@@ -42,23 +38,15 @@ public class UserDataEndpoint extends AbstractEndpoint {
     }
 
 
+    // gets a list of all available users and their data
+    // Warning: is not running and returning the object on the UI thread
     public void getUserList(IUserDataCallback userDataCallback) {
-        Request request = new Request.Builder()
+        final Request request = new Request.Builder()
                 .url(URL_USER_LIST)
                 .build();
 
         getHttpClient().newCall(request).enqueue(
                 new OkHttpUserDataCallback(userDataCallback));
-    }
-
-
-    public void getUserImage(UserDataModel userData, IUserProfileImageCallback userProfileImageCallback) {
-        Request request = new Request.Builder()
-                .url(userData.getProfileImageURL())
-                .build();
-
-        getHttpClient().newCall(request).enqueue(
-                new OkHttpUserProfileImageCallback(userProfileImageCallback));
     }
 
 
@@ -78,45 +66,15 @@ public class UserDataEndpoint extends AbstractEndpoint {
         @Override
         public void onResponse(Call call, Response response) throws IOException {
 
+            // TODO: return different messages based on http code
             if(response.isSuccessful()) {
                 try {
-                    // parse the JSON String
+                    // parse the JSON String using GSON
                     Type listType = new TypeToken<List<UserDataModel>>() {
                     }.getType();
                     List<UserDataModel> userData = new Gson().fromJson(response.body().string(), listType);
+                    // returns the list of user data
                     mCallback.onResponse(userData);
-
-                } catch (Exception e) {
-                    mCallback.onFail();
-                }
-            } else {
-                mCallback.onFail();
-            }
-        }
-    }
-
-    private class OkHttpUserProfileImageCallback implements Callback {
-
-        private IUserProfileImageCallback mCallback;
-
-        public OkHttpUserProfileImageCallback(IUserProfileImageCallback callback) {
-            mCallback = callback;
-        }
-
-        @Override
-        public void onFailure(Call call, IOException e) {
-            mCallback.onFail();
-        }
-
-        @Override
-        public void onResponse(Call call, Response response) throws IOException {
-
-            if(response.isSuccessful()) {
-                try {
-                    // create bitmap
-                    InputStream inputStream = response.body().byteStream();
-                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                    mCallback.onResponse(bitmap);
 
                 } catch (Exception e) {
                     mCallback.onFail();

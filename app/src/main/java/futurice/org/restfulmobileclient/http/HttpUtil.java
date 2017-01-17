@@ -11,6 +11,7 @@ public class HttpUtil {
 
     }
 
+    // checks if either mobile or wifi network is available
     public static boolean isNetworkConnectionAvailable(Context ctx) {
         ConnectivityManager cm = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = cm.getActiveNetworkInfo();

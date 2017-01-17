@@ -1,11 +1,12 @@
 package futurice.org.restfulmobileclient.activity;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Menu;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -20,10 +21,14 @@ import futurice.org.restfulmobileclient.http.UserDataEndpoint;
 import futurice.org.restfulmobileclient.model.UserDataModel;
 import futurice.org.restfulmobileclient.ui.UserListRecyclerViewAdapter;
 
-public class UserDataActivity extends FragmentActivity {
 
+// AppCompatActivity -> implements fragment activity and
+// can be used to show the support toolbar
+public class UserDataActivity extends AppCompatActivity {
 
-    private RecyclerView mUserListView;
+    // holds all user data items
+    private UserListRecyclerViewAdapter mUserDataListAdapter;
+    // is shown while the user data is loading
     private ProgressBar mProgressBar;
 
 
@@ -36,32 +41,41 @@ public class UserDataActivity extends FragmentActivity {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.user_data_activity_menu, menu);
-
-        return true;
-    }
-
-
+    // gets the UI fields and initializes the recycler view
     private void initUI() {
-        // gets the recycler view which holds all users
-        mUserListView = (RecyclerView) findViewById(R.id.activity_user_data_user_list);
+        // set new toolbar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.app_toolbar_title);
+
+        // set the color programmatically (XML tag only supported API >= 23)
+        toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.colorWhite));
+        setSupportActionBar(toolbar);
+
+        // get the UI elements
+        final RecyclerView userListView = (RecyclerView) findViewById(R.id.activity_user_data_user_list);
         mProgressBar = (ProgressBar) findViewById(R.id.activity_user_data_loading);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        mUserListView.setLayoutManager(layoutManager);
+        // initializes the recycler view similar to list view
+        final RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        userListView.setLayoutManager(layoutManager);
+
+        mUserDataListAdapter =
+                new UserListRecyclerViewAdapter(UserDataActivity.this);
+        // set the
+        userListView.setAdapter(mUserDataListAdapter);
     }
 
 
+    // shows the user details and hides the contacts
     public void showUserDetailsFragment(UserDataModel userData) {
-        UserDetailsFragment userDetailsFragment = new UserDetailsFragment();
+        final UserDetailsFragment userDetailsFragment = new UserDetailsFragment();
 
-        Bundle args = new Bundle();
+        // pass the user data to the fragment
+        final Bundle args = new Bundle();
         args.putSerializable(UserDetailsFragment.ARG_USER_DATA, userData);
         userDetailsFragment.setArguments(args);
 
+        // adds the fragment to the container
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.activity_user_data_fragment_container, userDetailsFragment)
                 .addToBackStack(null)
@@ -74,13 +88,15 @@ public class UserDataActivity extends FragmentActivity {
         super.onResume();
 
         // only load the data once
-        if(null == mUserListView.getAdapter()
-                || mUserListView.getAdapter().getItemCount() <= 0) {
+
+        if(null == mUserDataListAdapter
+                || mUserDataListAdapter.getItemCount() <= 0) {
             loadUserData();
         }
     }
 
 
+    // callback from getting the user data from the RESTful API
     private void loadUserData() {
         // sets the user data
         UserDataEndpoint.getInstance().getUserList(new IUserDataCallback() {
@@ -90,29 +106,27 @@ public class UserDataActivity extends FragmentActivity {
             }
 
             @Override
-            public void onResponse(List<UserDataModel> userData) {
-                updateList(userData);
+            public void onResponse(List<UserDataModel> userDataList) {
+                updateList(userDataList);
             }
 
-            private void updateList(final List<UserDataModel> userData) {
+            private void updateList(final List<UserDataModel> userDataList) {
                 UserDataActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         // hide the progress bar
                         mProgressBar.setVisibility(View.GONE);
 
-                        if(!userData.isEmpty()) {
+                        if(!userDataList.isEmpty()) {
                             // sort the list of users
-                            Collections.sort(userData);
+                            Collections.sort(userDataList);
 
-                            // add the users to the list
-                            UserListRecyclerViewAdapter mAdapter =
-                                    new UserListRecyclerViewAdapter(UserDataActivity.this, userData);
-
-                            mUserListView.setAdapter(mAdapter);
+                            // add the user data to the recycler view adapter
+                            mUserDataListAdapter.setUserDataList(userDataList);
 
                         // if list is empty -> check if there is a network connection
                         } else if(!HttpUtil.isNetworkConnectionAvailable(UserDataActivity.this)) {
+                            // if no network connection -> show message to the user
                             new AlertDialog.Builder(UserDataActivity.this)
                                     .setTitle(R.string.message_box_no_network_title)
                                     .setMessage(R.string.message_box_no_network_msg)
