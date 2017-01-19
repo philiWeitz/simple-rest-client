@@ -2,7 +2,6 @@ package futurice.org.restfulmobileclient.activity;
 
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -45,12 +44,14 @@ public class UserDataActivity extends AppCompatActivity {
     // gets the UI fields and initializes the recycler view
     private void initUI() {
         // set new toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.app_toolbar_title);
 
         // set the color programmatically (XML tag only supported API >= 23)
         toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.colorWhite));
         setSupportActionBar(toolbar);
+        // set back click listener (toolbar needs to be set first!!)
+        toolbar.setNavigationOnClickListener(mOnToolbarClick);
 
         // get the UI elements
         final RecyclerView userListView = (RecyclerView) findViewById(R.id.activity_user_data_user_list);
@@ -146,4 +147,12 @@ public class UserDataActivity extends AppCompatActivity {
             }
         });
     }
+
+    private View.OnClickListener mOnToolbarClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            // go back -> only visible if fragments are open
+            onBackPressed();
+        }
+    };
 }

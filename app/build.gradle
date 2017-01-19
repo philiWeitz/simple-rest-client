@@ -24,27 +24,21 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.google.guava'
-        exclude group: 'com.android.support', module: 'support-v4'
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
 
     compile group: 'com.android.support', name: 'appcompat-v7', version: gradle.android_support_version
     compile group: 'com.android.support', name: 'recyclerview-v7', version: gradle.android_support_version
-    compile group: 'com.android.support', name: 'cardview-v7', version: gradle.android_support_version
-    compile group: 'com.android.support', name: 'support-v4', version: gradle.android_support_version
 
     compile group: 'com.google.code.gson', name: 'gson', version: gradle.gson_version
     compile group: 'com.squareup.okhttp3', name: 'okhttp', version: gradle.okhttp_version
 
-    testCompile group: 'junit', name: 'junit', version: gradle.junit_version
-    testCompile group: 'com.squareup.okhttp3', name: 'mockwebserver', version: gradle.mockwebserver_version
     androidTestCompile group: 'com.squareup.okhttp3', name: 'mockwebserver', version: gradle.mockwebserver_version
 
-    // TODO: remove unused dependencies
-    //testCompile group: 'org.mockito', name: 'mockito-all', version: '2.0.2-beta'
-    //testCompile group: 'org.powermock', name: 'powermock-module-junit4-rule-agent', version: '1.6.3'
-    //testCompile group: 'org.powermock', name: 'powermock-api-mockito', version: '1.6.3'
-    //testCompile group: 'org.powermock', name: 'powermock-module-junit4', version: '1.6.3'
+    androidTestCompile(group: 'com.android.support.test.espresso', name: 'espresso-core', version: gradle.espresso_version, {
+        exclude module: 'support-annotations'
+        exclude module: 'recyclerview-v7'
+        exclude module: 'support-v4'
+    })
+
+    testCompile group: 'junit', name: 'junit', version: gradle.junit_version
+    testCompile group: 'com.squareup.okhttp3', name: 'mockwebserver', version: gradle.mockwebserver_version
 }

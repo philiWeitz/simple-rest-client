@@ -55,10 +55,10 @@ public class UserListRecyclerViewAdapter extends RecyclerView.Adapter<UserDataRe
     @Override
     public UserDataRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        final LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
 
         // gets the data binding object
-        ViewDataBinding binding = DataBindingUtil.inflate(
+        final ViewDataBinding binding = DataBindingUtil.inflate(
                 layoutInflater, R.layout.layout_user_list_entry, parent, false);
 
         UserDataRecyclerViewHolder viewHolder = new UserDataRecyclerViewHolder(mActivity, binding);

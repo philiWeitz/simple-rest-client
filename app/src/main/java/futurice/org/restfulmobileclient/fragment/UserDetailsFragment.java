@@ -7,7 +7,6 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,8 @@ import futurice.org.restfulmobileclient.model.UserAddressModel;
 import futurice.org.restfulmobileclient.model.UserDataModel;
 
 
-public class UserDetailsFragment extends Fragment {
+public class UserDetailsFragment extends AbstractBaseFragment {
+
     // serializer key for the user data object
     public static final String ARG_USER_DATA = "UserDataArgument";
     // prefix for showing the number on the dialer activity

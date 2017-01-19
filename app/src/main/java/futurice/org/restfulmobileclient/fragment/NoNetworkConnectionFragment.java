@@ -1,30 +1,17 @@
 package futurice.org.restfulmobileclient.fragment;
 
 
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.databinding.DataBindingUtil;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import futurice.org.restfulmobileclient.BR;
 import futurice.org.restfulmobileclient.R;
 import futurice.org.restfulmobileclient.activity.UserDataActivity;
-import futurice.org.restfulmobileclient.databinding.FragmentUserDetailsBinding;
-import futurice.org.restfulmobileclient.http.IUserImageCallback;
-import futurice.org.restfulmobileclient.http.UserImageEndpoint;
-import futurice.org.restfulmobileclient.model.UserAddressModel;
-import futurice.org.restfulmobileclient.model.UserDataModel;
 
 
-public class NoNetworkConnectionFragment extends Fragment {
+public class NoNetworkConnectionFragment extends AbstractBaseFragment {
 
     private static final String TAG = "NoNetworkFragment";
 
@@ -32,7 +19,7 @@ public class NoNetworkConnectionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(
+        final View view = inflater.inflate(
                 R.layout.fragment_no_network_connection, container, false);
 
         initUI(view);
