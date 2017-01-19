@@ -10,4 +10,6 @@
 
     <color name="colorListEntryBorder">#efefef</color>
     <color name="colorToolbarBackground">#ff8800</color>
+
+    <color name="colorTransparent">#00000000</color>
 </resources>

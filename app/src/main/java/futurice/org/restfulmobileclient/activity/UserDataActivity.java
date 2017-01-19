@@ -54,6 +54,8 @@ public class UserDataActivity extends AppCompatActivity {
         // set the color programmatically (XML tag only supported API >= 23)
         toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.colorWhite));
         setSupportActionBar(toolbar);
+        // set back icon
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.arrow_left);
         // set back click listener (toolbar needs to be set first!!)
         toolbar.setNavigationOnClickListener(mOnToolbarClick);
 
