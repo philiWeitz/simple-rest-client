@@ -6,6 +6,8 @@ import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,12 +18,15 @@ import futurice.org.restfulmobileclient.activity.UserDataActivity;
 import futurice.org.restfulmobileclient.model.UserDataModel;
 
 
-public class UserListRecyclerViewAdapter extends RecyclerView.Adapter<UserDataRecyclerViewHolder> {
+public class UserListRecyclerViewAdapter extends
+        RecyclerView.Adapter<UserDataRecyclerViewHolder> implements Filterable {
 
     // reference to the parent activity to show user data details
     private UserDataActivity mActivity;
     // holds all user data items
     private List<UserDataModel> mUserDataList = new ArrayList<>();
+    // holds all the filtered results
+    private List<UserDataModel> mUserDataListFiltered = new ArrayList<>();
 
 
     public UserListRecyclerViewAdapter(UserDataActivity activity) {
@@ -47,6 +52,8 @@ public class UserListRecyclerViewAdapter extends RecyclerView.Adapter<UserDataRe
             mUserDataList = Collections.emptyList();
         }
 
+        mUserDataListFiltered = mUserDataList;
+
         // update the recycler view
         notifyDataSetChanged();
     }
@@ -68,14 +75,52 @@ public class UserListRecyclerViewAdapter extends RecyclerView.Adapter<UserDataRe
 
     @Override
     public void onBindViewHolder(UserDataRecyclerViewHolder holder, int position) {
-        if(mUserDataList.size() > position) {
-            holder.setUserData(mUserDataList.get(position));
+        if(mUserDataListFiltered.size() > position) {
+            holder.setUserData(mUserDataListFiltered.get(position));
         }
     }
 
 
     @Override
     public int getItemCount() {
-        return mUserDataList.size();
+        return mUserDataListFiltered.size();
     }
+
+
+    @Override
+    public Filter getFilter() {
+        return mUserDataResultsFilter;
+    }
+
+
+    private Filter mUserDataResultsFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            FilterResults results = new FilterResults();
+
+            if (charSequence == null || charSequence.length() == 0) {
+                results.values = mUserDataList;
+                results.count = mUserDataList.size();
+            } else {
+                List<UserDataModel> filteredList = new ArrayList<>();
+
+                for (UserDataModel userData : mUserDataList) {
+                    if (userData.getName().toUpperCase().contains(charSequence.toString().toUpperCase())) {
+                        filteredList.add(userData);
+                    }
+                }
+
+                results.values = filteredList;
+                results.count = filteredList.size();
+            }
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            mUserDataListFiltered = (List<UserDataModel>) results.values;
+            UserListRecyclerViewAdapter.this.notifyDataSetChanged();
+        }
+    };
 }

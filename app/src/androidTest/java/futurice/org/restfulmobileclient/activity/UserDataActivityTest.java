@@ -1,19 +1,19 @@
 package futurice.org.restfulmobileclient.activity;
 
 
-import android.graphics.drawable.Drawable;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.support.v4.content.ContextCompat;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import futurice.org.restfulmobileclient.EspressoUtil;
 import futurice.org.restfulmobileclient.R;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -36,6 +36,8 @@ public class UserDataActivityTest {
     private static final String NAME_FIRST_RECORD = "Chelsey Dietrich ...";
     private static final String USER_NAME_SECOND_RECORD = "Moriah.Stanton";
     private static final String NAME_SECOND_RECORD = "Clementina DuBuque ...";
+    private static final String SEARCH_NAME_TYPED = "Ervin Howell";
+    private static final String SEARCH_NAME_RESULT = "Ervin Howell ...";
 
     private static final int INIT_TIMEOUT_IN_MS = 2 * 1000;
 
@@ -65,6 +67,24 @@ public class UserDataActivityTest {
                 .check(matches(hasDescendant(withText(NAME_SECOND_RECORD))));
         onView(nthChildOf(withId(R.id.activity_user_data_user_list), 1))
                 .check(matches(hasDescendant(withText(USER_NAME_SECOND_RECORD))));
+    }
+
+
+    @Test
+    public void searchBarTest() {
+        // waits until the first element was loaded
+        waitUntilFound(R.id.activity_user_data_user_list, 0, INIT_TIMEOUT_IN_MS);
+
+        // perform a search
+        onView(withId(R.id.searchView))
+                .perform(typeText(SEARCH_NAME_TYPED));
+
+        // wait for 500ms
+        EspressoUtil.waitUntil(500);
+
+        // check that the first item is the one we searched for
+        onView(nthChildOf(withId(R.id.activity_user_data_user_list), 0))
+                .check(matches(hasDescendant(withText(SEARCH_NAME_RESULT))));
     }
 
 

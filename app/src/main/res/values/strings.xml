@@ -2,6 +2,8 @@
     <string name="app_name">Restful Mobile Client</string>
     <string name="app_toolbar_title">Contacts</string>
 
+    <string name="search_bar_hint">Search...</string>
+
     <!-- Buttons -->
     <string name="button_ok">OK</string>
     <string name="button_retry">Retry</string>

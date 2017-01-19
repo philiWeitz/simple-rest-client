@@ -18,6 +18,17 @@ public class EspressoUtil {
     }
 
 
+    // waits for the specified time
+    // maybe not the best implementation but it works quite well :)
+    public static void waitUntil(long timeInMs) {
+        final long time = System.currentTimeMillis() + timeInMs;
+
+        while(time > System.currentTimeMillis()) {
+
+        }
+    }
+
+    // waits until it finds the element or until the timeout occurs
     public static void waitUntilFound(int itemId, int childIdx, long timeoutInMs) {
         final long time = System.currentTimeMillis() + timeoutInMs;
 

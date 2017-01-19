@@ -1,5 +1,6 @@
 package futurice.org.restfulmobileclient.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -7,7 +8,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 
 import java.util.Collections;
 import java.util.List;
@@ -31,6 +34,8 @@ public class UserDataActivity extends AppCompatActivity {
     // is shown while the user data is loading
     private ProgressBar mProgressBar;
 
+    private SearchView mSearchView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +51,19 @@ public class UserDataActivity extends AppCompatActivity {
         // set new toolbar
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.app_toolbar_title);
-
         // set the color programmatically (XML tag only supported API >= 23)
         toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.colorWhite));
         setSupportActionBar(toolbar);
         // set back click listener (toolbar needs to be set first!!)
         toolbar.setNavigationOnClickListener(mOnToolbarClick);
+
+        // setup the search
+        mSearchView = (SearchView) findViewById(R.id.searchView);
+        // set the search filter
+        mSearchView.setOnQueryTextListener(mOnSearchListener);
+        // expand the search view to make it everywhere clickable
+        mSearchView.setIconified(false);
+        mSearchView.clearFocus();
 
         // get the UI elements
         final RecyclerView userListView = (RecyclerView) findViewById(R.id.activity_user_data_user_list);
@@ -71,6 +83,9 @@ public class UserDataActivity extends AppCompatActivity {
     public void showUserDetailsFragment(UserDataModel userData) {
         final UserDetailsFragment userDetailsFragment = new UserDetailsFragment();
 
+        // hide the search view
+        hideSearchSoftKeyboard();
+
         // pass the user data to the fragment
         final Bundle args = new Bundle();
         args.putSerializable(UserDetailsFragment.ARG_USER_DATA, userData);
@@ -86,6 +101,9 @@ public class UserDataActivity extends AppCompatActivity {
 
     // shows the no network connection fragment
     private void showNoNetworkConnectionFragment() {
+        // hide the search view
+        hideSearchSoftKeyboard();
+
         final NoNetworkConnectionFragment noNetworkFragment =
                 new NoNetworkConnectionFragment();
 
@@ -148,11 +166,35 @@ public class UserDataActivity extends AppCompatActivity {
         });
     }
 
+
     private View.OnClickListener mOnToolbarClick = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            // go back -> only visible if fragments are open
+            // go back -> should only be visible if fragments are open
             onBackPressed();
         }
     };
+
+
+    private SearchView.OnQueryTextListener mOnSearchListener = new SearchView.OnQueryTextListener() {
+        @Override
+        public boolean onQueryTextSubmit(String query) {
+            return false;
+        }
+
+        @Override
+        public boolean onQueryTextChange(String newText) {
+            mUserDataListAdapter.getFilter().filter(newText);
+            return false;
+        }
+    };
+
+
+    private void hideSearchSoftKeyboard() {
+        mSearchView.clearFocus();
+
+        InputMethodManager inputManager =
+                (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+    }
 }
