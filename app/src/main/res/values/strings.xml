@@ -1,28 +1,24 @@
 <resources>
     <string name="app_name">Restful Mobile Client</string>
     <string name="app_toolbar_title">Contacts</string>
-
-    <string name="search_bar_hint">Search...</string>
+    <string name="search_bar_hint">Search&#8230;</string>
 
     <!-- Buttons -->
-    <string name="button_ok">OK</string>
     <string name="button_retry">Retry</string>
 
-    <!-- Message boxes -->
-    <string name="message_box_no_network_title">No Network Connection</string>
-    <string name="message_box_no_network_msg">This App requires the phone
-        to be connected to a Network. Please ensure that a network connection is available</string>
-
     <!-- Intents -->
-    <string name="intent_email_send_to">Send email...</string>
+    <string name="intent_email_send_to">Send email&#8230;</string>
 
     <!-- Fragment User Details -->
     <string name="fragment_user_details_caption_full_name">Full Name</string>
     <string name="fragment_user_details_caption_email">Email</string>
     <string name="fragment_user_details_caption_phone">Phone</string>
-    <string name="fragment_user_details_caption_address">Adress</string>
+    <string name="fragment_user_details_caption_address">Address</string>
 
-    <!-- Fragment No Connection -->
-    <string name="fragment_no_network_connection_text">No Network Connection Available</string>
+    <!-- User Data Activity -->
+    <string name="user_data_activity_no_user_data">No contacts found</string>
+    <string name="user_data_activity_no_network_connection">No network connection.\n
+        Please verify that you are connected to the internet.
+    </string>
 
 </resources>

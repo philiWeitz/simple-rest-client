@@ -16,10 +16,10 @@ public class UserAddressLocationModel implements Serializable {
 
 
     @SerializedName("lat")
-    String lat = "";
+    private String lat = "";
 
     @SerializedName("lng")
-    String lng = "";
+    private String lng = "";
 
 
     public String getLat() {

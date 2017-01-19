@@ -68,8 +68,7 @@ public class UserListRecyclerViewAdapter extends
         final ViewDataBinding binding = DataBindingUtil.inflate(
                 layoutInflater, R.layout.layout_user_list_entry, parent, false);
 
-        UserDataRecyclerViewHolder viewHolder = new UserDataRecyclerViewHolder(mActivity, binding);
-        return viewHolder;
+        return new UserDataRecyclerViewHolder(mActivity, binding);
     }
 
 
@@ -93,7 +92,7 @@ public class UserListRecyclerViewAdapter extends
     }
 
 
-    private Filter mUserDataResultsFilter = new Filter() {
+    private final Filter mUserDataResultsFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
             FilterResults results = new FilterResults();

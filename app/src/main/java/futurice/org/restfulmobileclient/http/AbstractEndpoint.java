@@ -5,7 +5,7 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 
-public abstract class AbstractEndpoint {
+abstract class AbstractEndpoint {
 
     // server read timeout
     private static final int READ_TIMEOUT_IN_MS = 4000;
@@ -22,7 +22,7 @@ public abstract class AbstractEndpoint {
                 .build();
     }
 
-    protected OkHttpClient getHttpClient() {
+    OkHttpClient getHttpClient() {
         return mClient;
     }
 }

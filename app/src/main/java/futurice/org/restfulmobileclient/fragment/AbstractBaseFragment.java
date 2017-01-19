@@ -25,7 +25,7 @@ public abstract class AbstractBaseFragment extends Fragment {
         // check that action bar is visible
         if(getActivity() instanceof AppCompatActivity) {
             final ActionBar toolbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-            // check that toolbar was integragted
+            // check that toolbar was integrated
             if(null != toolbar) {
                 // show back button
                 toolbar.setDisplayHomeAsUpEnabled(display);

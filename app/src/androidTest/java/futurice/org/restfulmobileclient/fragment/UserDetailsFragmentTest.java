@@ -34,7 +34,7 @@ public class UserDetailsFragmentTest {
     private static final String PHONE = "(254)954-1289";
     private static final String ADDRESS = "Skiles Walks, Suite 351\n33263, Roscoeview";
 
-    private static final int INIT_TIMEOUT_IN_MS = 2 * 1000;
+    private static final int INIT_TIMEOUT_IN_MS = 3 * 1000;
 
 
     @Rule
@@ -52,7 +52,7 @@ public class UserDetailsFragmentTest {
                 .perform(click());
 
         // get fragment
-        ViewInteraction fragment = onView(withId(R.id.activity_user_data_fragment_container));
+        final ViewInteraction fragment = onView(withId(R.id.activity_user_data_fragment_container));
         fragment.check(matches(hasDescendant(withText(USER_NAME))));
         fragment.check(matches(hasDescendant(withText(NAME))));
         fragment.check(matches(hasDescendant(withText(PHONE))));

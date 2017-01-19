@@ -30,8 +30,6 @@ import static futurice.org.restfulmobileclient.EspressoUtil.waitUntilFound;
 @RunWith(AndroidJUnit4.class)
 public class UserDataActivityTest {
 
-    private static final int MAX_AMOUNT_OF_RECORDS = 10;
-
     private static final String USER_NAME_FIRST_RECORD = "Kamren";
     private static final String NAME_FIRST_RECORD = "Chelsey Dietrich ...";
     private static final String USER_NAME_SECOND_RECORD = "Moriah.Stanton";
@@ -39,7 +37,7 @@ public class UserDataActivityTest {
     private static final String SEARCH_NAME_TYPED = "Ervin Howell";
     private static final String SEARCH_NAME_RESULT = "Ervin Howell ...";
 
-    private static final int INIT_TIMEOUT_IN_MS = 2 * 1000;
+    private static final int INIT_TIMEOUT_IN_MS = 3 * 1000;
 
 
     @Rule

@@ -55,7 +55,7 @@ public class EspressoUtil {
                     return parentMatcher.matches(view.getParent());
                 }
 
-                ViewGroup viewGroup = (ViewGroup) view.getParent();
+                final ViewGroup viewGroup = (ViewGroup) view.getParent();
 
                 return parentMatcher.matches(view.getParent()) &&
                         viewGroup.getChildAt(childPosition).equals(view);

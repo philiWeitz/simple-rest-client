@@ -15,7 +15,7 @@
 
         <!-- Left side of the screen -->
         <RelativeLayout
-            android:layout_width="300dp"
+            android:layout_width="350dp"
             android:layout_height="match_parent">
 
             <ProgressBar
@@ -54,7 +54,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <!-- Include the user detail fields -->

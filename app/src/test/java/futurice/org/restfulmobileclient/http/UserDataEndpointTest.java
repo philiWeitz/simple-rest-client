@@ -24,9 +24,9 @@ public class UserDataEndpointTest {
     private static final String FIELD_USER_DATA_URL = "URL_USER_LIST";
 
     // invalid JSON response
-    private static String JSON_INVALID_BODY = "invalid body";
+    private static final String JSON_INVALID_BODY = "invalid body";
     // valid JSON response
-    private static String JSON_VALID_BODY = "[{\n" +
+    private static final String JSON_VALID_BODY = "[{\n" +
             "    \"id\": 1,\n" +
             "    \"name\": \"Leanne Graham\",\n" +
             "    \"username\": \"Bret\",\n" +
@@ -55,7 +55,7 @@ public class UserDataEndpointTest {
     private volatile boolean mFailed = true;
 
     // basic mock server api url
-    protected static final String MOCK_URL = "unit/testing";
+    private static final String MOCK_URL = "unit/testing";
 
     // holds the last mock server instance
     private MockWebServer mMockServer = new MockWebServer();
@@ -74,7 +74,7 @@ public class UserDataEndpointTest {
         final CountDownLatch signal = new CountDownLatch(1);
 
         // start web server
-        MockWebServer server = startMockServer(JSON_INVALID_BODY, HttpURLConnection.HTTP_OK);
+        final MockWebServer server = startMockServer(JSON_INVALID_BODY, HttpURLConnection.HTTP_OK);
         // change the url
         TestUtil.changePrivateStaticVariable(UserDataEndpoint.class,
                 FIELD_USER_DATA_URL, server.url(MOCK_URL).toString());
@@ -108,7 +108,7 @@ public class UserDataEndpointTest {
         final CountDownLatch signal = new CountDownLatch(1);
 
         // start web server
-        MockWebServer server = startMockServer(JSON_VALID_BODY, HttpURLConnection.HTTP_OK);
+        final MockWebServer server = startMockServer(JSON_VALID_BODY, HttpURLConnection.HTTP_OK);
         // change the url
         TestUtil.changePrivateStaticVariable(UserDataEndpoint.class,
                 FIELD_USER_DATA_URL, server.url(MOCK_URL).toString());
@@ -154,7 +154,7 @@ public class UserDataEndpointTest {
         final CountDownLatch signal = new CountDownLatch(1);
 
         // start web server
-        MockWebServer server = startMockServer(JSON_VALID_BODY, HttpURLConnection.HTTP_OK);
+        final MockWebServer server = startMockServer(JSON_VALID_BODY, HttpURLConnection.HTTP_OK);
         // change the url
         TestUtil.changePrivateStaticVariable(UserDataEndpoint.class,
                 FIELD_USER_DATA_URL, server.url(MOCK_URL).toString());
@@ -187,7 +187,7 @@ public class UserDataEndpointTest {
 
     private MockWebServer startMockServer(String body, int responseCode) throws Exception {
         // init response
-        MockResponse response = new MockResponse();
+        final MockResponse response = new MockResponse();
         response.setResponseCode(responseCode);
         response.setBody(body);
 

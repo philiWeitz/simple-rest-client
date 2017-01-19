@@ -52,7 +52,7 @@ public class UserDataEndpoint extends AbstractEndpoint {
 
     private class OkHttpUserDataCallback implements Callback {
 
-        private IUserDataCallback mCallback;
+        private final IUserDataCallback mCallback;
 
         public OkHttpUserDataCallback(IUserDataCallback callback) {
             mCallback = callback;

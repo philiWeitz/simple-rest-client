@@ -29,7 +29,7 @@ public class UserImageEndpointTest {
     private volatile boolean mFailed = true;
 
     // basic mock server api url
-    protected static final String MOCK_URL = "unit/testing";
+    private static final String MOCK_URL = "unit/testing";
 
     // holds the last mock server instance
     private MockWebServer mMockServer = new MockWebServer();
@@ -47,9 +47,9 @@ public class UserImageEndpointTest {
     public void getUserProfileImageInvalidBitmapTest() throws Exception {
         final CountDownLatch signal = new CountDownLatch(1);
         // create the user data
-        UserDataModel userData = new UserDataModel();
+        final UserDataModel userData = new UserDataModel();
         // start the mock server with an empty buffer
-        MockWebServer server = startMockServer(new byte[] {}, HttpURLConnection.HTTP_OK);
+        final MockWebServer server = startMockServer(new byte[] {}, HttpURLConnection.HTTP_OK);
         // set the mock url
         userData.setProfileImageURL(server.url(MOCK_URL).toString());
 
@@ -84,9 +84,9 @@ public class UserImageEndpointTest {
 
         final CountDownLatch signal = new CountDownLatch(1);
         // create the user data
-        UserDataModel userData = new UserDataModel();
+        final UserDataModel userData = new UserDataModel();
         // start the mock server with an empty buffer
-        MockWebServer server = startMockServer(
+        final MockWebServer server = startMockServer(
                 bitmapToJsonArray(bitmap), HttpURLConnection.HTTP_OK);
         // set the mock url
         userData.setProfileImageURL(server.url(MOCK_URL).toString());
@@ -126,9 +126,9 @@ public class UserImageEndpointTest {
     public void getUserProfileImageServerUnreachable() throws Exception {
         final CountDownLatch signal = new CountDownLatch(1);
         // create the user data
-        UserDataModel userData = new UserDataModel();
+        final UserDataModel userData = new UserDataModel();
         // start the mock server with an empty buffer
-        MockWebServer server = startMockServer(new byte[] {}, HttpURLConnection.HTTP_OK);
+        final MockWebServer server = startMockServer(new byte[] {}, HttpURLConnection.HTTP_OK);
         // set the mock url
         userData.setProfileImageURL(server.url(MOCK_URL).toString());
         // shutdown the server again
@@ -159,18 +159,18 @@ public class UserImageEndpointTest {
 
 
     private static byte[] bitmapToJsonArray(Bitmap bitmap) {
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        final ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 90, stream);
         return stream.toByteArray();
     }
 
 
     private MockWebServer startMockServer(byte[] body, int responseCode) throws Exception {
-        Buffer buffer = new Buffer();
+        final Buffer buffer = new Buffer();
         buffer.write(body);
 
         // init response
-        MockResponse response = new MockResponse();
+        final MockResponse response = new MockResponse();
         response.setResponseCode(responseCode);
         response.setBody(buffer);
 

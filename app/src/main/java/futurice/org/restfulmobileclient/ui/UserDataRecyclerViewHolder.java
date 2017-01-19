@@ -12,9 +12,9 @@ import futurice.org.restfulmobileclient.model.UserDataModel;
 
 public class UserDataRecyclerViewHolder   extends RecyclerView.ViewHolder {
 
-    private UserDataActivity mActivity;
+    private final UserDataActivity mActivity;
     // used to rebind passed user data
-    private ViewDataBinding mBinding;
+    private final ViewDataBinding mBinding;
     // keeps the current view user data
     private UserDataModel mUserData = new UserDataModel();
 
@@ -38,7 +38,7 @@ public class UserDataRecyclerViewHolder   extends RecyclerView.ViewHolder {
 
 
     // show the user details fragment
-    View.OnClickListener mOnUserClick = new View.OnClickListener() {
+    private final View.OnClickListener mOnUserClick = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             // show user details

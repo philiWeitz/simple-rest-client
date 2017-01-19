@@ -48,7 +48,7 @@ public class UserImageEndpoint extends AbstractEndpoint {
 
     private class OkHttpUserImageCallback implements Callback {
 
-        private IUserImageCallback mCallback;
+        private final IUserImageCallback mCallback;
 
         public OkHttpUserImageCallback(IUserImageCallback callback) {
             mCallback = callback;

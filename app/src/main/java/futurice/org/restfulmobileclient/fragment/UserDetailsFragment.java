@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -34,7 +35,9 @@ public class UserDetailsFragment extends AbstractBaseFragment {
 
     // holds the user profile image (lazy loading)
     private ImageView mProfileImageView;
+
     private UserDataModel mUserData = new UserDataModel();
+
 
 
     @Override
@@ -102,7 +105,7 @@ public class UserDetailsFragment extends AbstractBaseFragment {
     }
 
 
-    private View.OnClickListener mOnEmailClickListener = new View.OnClickListener() {
+    private final View.OnClickListener mOnEmailClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             // switch to email program
@@ -116,7 +119,7 @@ public class UserDetailsFragment extends AbstractBaseFragment {
     };
 
 
-    private View.OnClickListener mOnPhoneNumberClickListener = new View.OnClickListener() {
+    private final View.OnClickListener mOnPhoneNumberClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             // switch to dialer
@@ -130,7 +133,7 @@ public class UserDetailsFragment extends AbstractBaseFragment {
     };
 
 
-    private View.OnClickListener mOnAddressClickListener = new View.OnClickListener() {
+    private final View.OnClickListener mOnAddressClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             final UserAddressModel userAddress = mUserData.getAddress();
@@ -149,10 +152,9 @@ public class UserDetailsFragment extends AbstractBaseFragment {
     };
 
 
-    private IUserImageCallback mUserProfileCallback = new IUserImageCallback() {
+    private final IUserImageCallback mUserProfileCallback = new IUserImageCallback() {
         @Override
         public void onFail() {
-            // TODO: show default image
             processResponse(null);
         }
 
@@ -165,8 +167,17 @@ public class UserDetailsFragment extends AbstractBaseFragment {
             UserDetailsFragment.this.getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    // set the profile bitmap
-                    mProfileImageView.setImageBitmap(profileImage);
+
+                    if(null != profileImage) {
+                        // set the profile bitmap
+                        mProfileImageView.setImageBitmap(profileImage);
+
+                    } else {
+                        // set placeholder image
+                        mProfileImageView.setImageBitmap(BitmapFactory.decodeResource(
+                                getActivity().getResources(), R.drawable.user_image_placeholder));
+                    }
+
                     // hide the progress bar (also for espresso tests!)
                     getActivity().findViewById(
                             R.id.fragment_user_details_loading).setVisibility(View.GONE);
@@ -174,4 +185,7 @@ public class UserDetailsFragment extends AbstractBaseFragment {
             });
         }
     };
+
+
+
 }

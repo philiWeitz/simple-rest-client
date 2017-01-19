@@ -11,22 +11,22 @@ import futurice.org.restfulmobileclient.util.StringUtil;
 public class UserDataModel implements Serializable, Comparable<UserDataModel> {
 
     @SerializedName("name")
-    String name;
+    private String name;
 
     @SerializedName("username")
-    String username;
+    private String username;
 
     @SerializedName("email")
-    String email;
+    private String email;
 
     @SerializedName("phone")
-    String phone;
+    private String phone;
 
     @SerializedName("address")
-    UserAddressModel address = new UserAddressModel();
+    private UserAddressModel address = new UserAddressModel();
 
     // Only to show how to load profile images on the fly
-    String profileImageURL = "http://placehold.it/600/f66b97";
+    private String profileImageURL = "http://placehold.it/600/f66b97";
 
 
     public String getName() {
@@ -62,6 +62,9 @@ public class UserDataModel implements Serializable, Comparable<UserDataModel> {
     }
 
     public UserAddressModel getAddress() {
+        if(null == address) {
+            address = new UserAddressModel();
+        }
         return address;
     }
 

@@ -11,19 +11,19 @@ import futurice.org.restfulmobileclient.util.StringUtil;
 public class UserAddressModel implements Serializable {
 
     @SerializedName("street")
-    String street = "";
+    private String street = "";
 
     @SerializedName("suite")
-    String suite = "";
+    private String suite = "";
 
     @SerializedName("city")
-    String city = "";
+    private String city = "";
 
     @SerializedName("zipcode")
-    String zipcode = "";
+    private String zipcode = "";
 
     @SerializedName("geo")
-    UserAddressLocationModel location = new UserAddressLocationModel();
+    private UserAddressLocationModel location = new UserAddressLocationModel();
 
 
     public String getStreet() {
@@ -59,6 +59,9 @@ public class UserAddressModel implements Serializable {
     }
 
     public UserAddressLocationModel getLocation() {
+        if(null == location) {
+            location = new UserAddressLocationModel();
+        }
         return location;
     }
 
